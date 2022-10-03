@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crawling!</title>
+    <link rel="shortcut icon" href="/images/common/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/css/aos.css" />
+    <link rel="stylesheet" href="/css/splitting.css" />
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/board.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/contents.css" />
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e549d3aa2a7d71e732574a7bc02d2d2c&libraries=services"></script>
+    <script src="../crawling/js/jquery-3.6.0.min.js"></script>
+    <script src="../js/greensock/gsap.min.js"></script>
+  </head>
+  <body>
+    <header id="header"><h1>Crawling!</h1></header>
+
+    <main id="main">
+      <ul class="newsList"></ul>
+    </main>
+    <script>
+      const newsList = $(".newsList");
+      $.ajax({ url: "http://127.0.0.1:8099/daum/news" }).done((response) => {
+        console.log(response);
+        let tempHtml = "";
+        $.each(response, (idx, item) => {
+          tempHtml += `<li style="list-style: none;"  >
+            <a href= "${item.url}" target = "_blank">
+              <div class="img"> <img src="${item.img}"></div>
+              <div class= "info">
+                <div class = "top">
+                  <span class="company">
+                    <img src="${item.company}"></span>
+                  <span class="catagory">
+                    ${item.catagory}</span>
+                  </div>
+                <strong>${item.title}</strong> 
+            </li>`;
+        });
+        newsList.html(tempHtml);
+      });
+    </script>
+  </body>
+</html>
